@@ -1,4 +1,4 @@
-json.contacts @contacts.each do |contact|
+json.array! @contacts.each do |contact|
   json.id contact.id
   json.First_name contact.first_name
   json.Last_name contact.last_name
