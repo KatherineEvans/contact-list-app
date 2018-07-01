@@ -1,12 +1,23 @@
 class MyContactsController < ApplicationController
-  def one_contact_method
-    @contact = MyContact.first
-    render "call_contact.json.jbuilder"
+  def show
+    @contact = MyContact.find_by(id: params[:id])
+    render "show.json.jbuilder"
   end
 
-  def all_contacts_method
+  def create
+    @contact = MyContact.new(
+      first_name: params["first_name"],
+      last_name: params["last_name"],
+      email: params["email"],
+      phone_number: params["phone_number"]
+    )
+    @contact.save
+    render "show.json.jbuilder"
+  end
+
+  def index
     @contacts = MyContact.all
-    render "call_all_contacts.json.jbuilder"
+    render "index.json.jbuilder"
   end
 
 end
