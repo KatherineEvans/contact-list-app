@@ -4,4 +4,5 @@ json.array! @contacts.each do |contact|
   json.Last_name contact.last_name
   json.Email contact.email
   json.Phone contact.phone_number
+  json.Alt_phone contact.japan_phone
 end
