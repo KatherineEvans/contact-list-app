@@ -1,7 +1,7 @@
 class MyContactsController < ApplicationController
   
   def index
-    @contacts = MyContact.all
+    @contacts = MyContact.all.order(:id)
     render "index.json.jbuilder"
   end
 
@@ -14,8 +14,13 @@ class MyContactsController < ApplicationController
       phone_number: params["phone_number"],
       bio: params["bio"]
     )
-    @contact.save
-    render "show.json.jbuilder"
+    
+    if @contact.save
+      render "show.json.jbuilder"
+    else
+      render json: {error: @contact.errors.full_messages}, status: 416
+    end
+
   end
 
   def show
@@ -31,8 +36,12 @@ class MyContactsController < ApplicationController
     @contact.email = params["email"] || @contact.email
     @contact.phone_number = params["phone_number"] || @contact.phone_number
     @contact.bio = params["bio"] || @contact.bio
-    @contact.save
-    render "show.json.jbuilder"
+    
+    if @contact.save
+      render "show.json.jbuilder"
+    else
+      render json: {error: @contact.errors.full_messages}, status: 416
+    end
   end
 
   def destroy
