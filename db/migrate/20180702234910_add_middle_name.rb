@@ -1,0 +1,5 @@
+class AddMiddleName < ActiveRecord::Migration[5.2]
+  def change
+    add_column :my_contacts, :middle_name, :string
+  end
+end
