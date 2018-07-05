@@ -2,6 +2,23 @@ class MyContactsController < ApplicationController
   
   def index
     @contacts = MyContact.all.order(:id)
+    
+
+    search = params[:fname]
+    if search
+      @contacts = @contacts.where("first_name ILIKE ?", "%#{search}%")
+    end
+
+    search = params[:lname]
+    if search
+      @contacts = @contacts.where("last_name ILIKE ?", "%#{search}%")
+    end
+
+    search = params[:email]
+    if search
+      @contacts = @contacts.where("email ILIKE ?", "%#{search}%")
+    end
+
     render "index.json.jbuilder"
   end
 
