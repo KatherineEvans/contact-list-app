@@ -1,8 +1,9 @@
 class MyContactsController < ApplicationController
   
   def index
-    @contacts = MyContact.all.order(:id)
-    
+    if current_user
+      @contacts = MyContact.where(user_id: current_user.id)
+    end
 
     search = params[:fname]
     if search
